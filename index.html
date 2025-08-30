@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Chat App - Real-time</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Join Car Chat</h2>
+            <input type="text" id="usernameInput" placeholder="Enter your name" maxlength="20">
+            <select id="userTypeSelect">
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+            </select>
+            <button onclick="joinChat()">Join Chat</button>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer" style="display: none;">
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>Car Discussion</h2>
+                <div class="user-info">
+                    <span id="currentUser"></span>
+                    <div class="call-controls">
+                        <button id="audioCallBtn" onclick="startCall('audio')" title="Audio Call">📞</button>
+                        <button id="videoCallBtn" onclick="startCall('video')" title="Video Call">📹</button>
+                        <span id="onlineUsers">Online: 0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        
+        <div class="product-section">
+            <div class="product-display" id="productDisplay">
+                <div class="no-product">
+                    <p>Start discussing car parts to see images and details</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Modal -->
+    <div id="callModal" class="modal" style="display: none;">
+        <div class="call-content">
+            <div class="call-header">
+                <h3 id="callStatus">Connecting...</h3>
+                <button id="endCallBtn" onclick="endCall()">End Call</button>
+            </div>
+            <div class="video-container">
+                <video id="localVideo" autoplay muted></video>
+                <video id="remoteVideo" autoplay></video>
+            </div>
+            <div class="call-controls">
+                <button id="muteBtn" onclick="toggleMute()">🎤</button>
+                <button id="videoToggleBtn" onclick="toggleVideo()">📹</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incoming Call Modal -->
+    <div id="incomingCallModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Incoming Call</h3>
+            <p id="callerName"></p>
+            <div class="call-actions">
+                <button onclick="acceptCall()" class="accept-btn">Accept</button>
+                <button onclick="rejectCall()" class="reject-btn">Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
